@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #071426;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-mint px-7 py-3 text-sm font-bold text-navy-950 shadow-[0_16px_35px_rgba(25,181,138,0.24)] transition duration-300 hover:-translate-y-1 hover:bg-emerald-300 focus:outline-none focus:ring-4 focus:ring-emerald-300/20;
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-300/25 bg-white/10 px-7 py-3 text-sm font-bold text-white shadow-soft backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-cyan-200/60 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-cyan-300/20;
+  }
+
+  .btn-ghost {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 bg-transparent px-7 py-3 text-sm font-bold text-slate-100 transition duration-300 hover:-translate-y-1 hover:border-mint hover:text-mint focus:outline-none focus:ring-4 focus:ring-emerald-300/20;
+  }
+
+  .form-field {
+    @apply block text-sm font-semibold text-navy-950;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    @apply mt-2 w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-mint focus:ring-4 focus:ring-emerald-100;
+  }
+
+  .menu-line {
+    @apply absolute left-0 h-0.5 w-5 rounded-full bg-white transition duration-300;
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.055] shadow-[0_20px_70px_rgba(0,0,0,0.2)] backdrop-blur-xl;
+  }
+
+  .analytics-grid {
+    background-image:
+      linear-gradient(rgba(125, 211, 252, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125, 211, 252, 0.07) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .floating-skill {
+    @apply flex w-24 flex-col items-center sm:w-28;
+    animation: skill-float 5.8s ease-in-out infinite;
+  }
+
+  .skill-logo {
+    @apply grid h-16 w-16 place-items-center rounded-2xl border border-white/10 bg-white/[0.07] shadow-[0_16px_38px_rgba(0,0,0,0.24)] backdrop-blur transition duration-300 group-hover:-translate-y-2 group-hover:scale-105 group-hover:border-mint/70 sm:h-20 sm:w-20;
+  }
+}
+
+@keyframes skill-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .floating-skill {
+    animation: none;
+  }
+}
