@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { skillGroups } from '../data/portfolio';
 import Section from './Section';
 import * as SiIcons from 'react-icons/si';
@@ -17,7 +17,7 @@ const iconMap: Record<string, any> = {
   javascript: SiIcons.SiJavascript,
   typescript: SiIcons.SiTypescript,
   html5: SiIcons.SiHtml5,
-  css3: SiIcons.SiCss3,
+  css3: SiIcons.SiCss,
   r: SiIcons.SiR,
   react: SiIcons.SiReact,
   nextdotjs: SiIcons.SiNextdotjs,
@@ -34,7 +34,7 @@ const iconMap: Record<string, any> = {
   vite: SiIcons.SiVite,
   postman: SiIcons.SiPostman,
   figma: SiIcons.SiFigma,
-  adobephotoshop: SiIcons.SiAdobephotoshop,
+  adobephotoshop: RiIcons.RiImageEditFill,
   jupyter: SiIcons.SiJupyter,
   microsoftexcel: RiIcons.RiFileExcel2Fill,
 };
@@ -75,7 +75,7 @@ const colorMap: Record<string, string> = {
 export default function Skills() {
   const allSkills = skillGroups.flatMap(group => group.skills);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -85,7 +85,7 @@ export default function Skills() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8, y: 20 },
     visible: { 
       opacity: 1, 
