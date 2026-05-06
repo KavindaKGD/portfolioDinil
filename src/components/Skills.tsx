@@ -1,174 +1,155 @@
-import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { skillGroups } from '../data/portfolio';
 import Section from './Section';
+import * as SiIcons from 'react-icons/si';
+import * as Io5Icons from 'react-icons/io5';
+import * as GrIcons from 'react-icons/gr';
+import * as RiIcons from 'react-icons/ri';
 
-type SkillLogo = {
-  name: string;
-  logo?: string;
-  mark?: string;
-  accent: string;
+// Map slugs to React Icons
+const iconMap: Record<string, any> = {
+  powerbi: SiIcons.SiSimpleicons, // Fallback if SiPowerbi is missing
+  looker: SiIcons.SiLooker,
+  tableau: Io5Icons.IoLogoTableau,
+  googleanalytics: SiIcons.SiGoogleanalytics,
+  d3dotjs: SiIcons.SiD3,
+  python: SiIcons.SiPython,
+  javascript: SiIcons.SiJavascript,
+  typescript: SiIcons.SiTypescript,
+  html5: SiIcons.SiHtml5,
+  css3: SiIcons.SiCss3,
+  r: SiIcons.SiR,
+  react: SiIcons.SiReact,
+  nextdotjs: SiIcons.SiNextdotjs,
+  nodedotjs: SiIcons.SiNodedotjs,
+  express: SiIcons.SiExpress,
+  mysql: SiIcons.SiMysql,
+  oracle: GrIcons.GrOracle,
+  postgresql: SiIcons.SiPostgresql,
+  mongodb: SiIcons.SiMongodb,
+  firebase: SiIcons.SiFirebase,
+  redis: SiIcons.SiRedis,
+  git: SiIcons.SiGit,
+  docker: SiIcons.SiDocker,
+  vite: SiIcons.SiVite,
+  postman: SiIcons.SiPostman,
+  figma: SiIcons.SiFigma,
+  adobephotoshop: SiIcons.SiAdobephotoshop,
+  jupyter: SiIcons.SiJupyter,
+  microsoftexcel: RiIcons.RiFileExcel2Fill,
 };
 
-const skillLogos: Record<string, SkillLogo> = {
-  'Power BI': {
-    name: 'Power BI',
-    logo: 'https://cdn.simpleicons.org/powerbi/F2C811',
-    mark: 'PBI',
-    accent: 'from-yellow-300/20 to-amber-500/10',
-  },
-  'Looker Studio': {
-    name: 'Looker Studio',
-    logo: 'https://cdn.simpleicons.org/looker/4285F4',
-    accent: 'from-blue-400/20 to-cyan-400/10',
-  },
-  'Descriptive Analytics': {
-    name: 'Descriptive Analytics',
-    mark: 'DA',
-    accent: 'from-cyan-300/20 to-mint/10',
-  },
-  'Dashboard Development': {
-    name: 'Dashboard Development',
-    mark: 'BI',
-    accent: 'from-sky-300/20 to-cyan-500/10',
-  },
-  'Data Visualization': {
-    name: 'Data Visualization',
-    mark: 'DV',
-    accent: 'from-emerald-300/20 to-cyan-400/10',
-  },
-  Python: {
-    name: 'Python',
-    logo: 'https://cdn.simpleicons.org/python/3776AB',
-    accent: 'from-blue-400/20 to-yellow-300/10',
-  },
-  JavaScript: {
-    name: 'JavaScript',
-    logo: 'https://cdn.simpleicons.org/javascript/F7DF1E',
-    accent: 'from-yellow-300/20 to-orange-300/10',
-  },
-  HTML: {
-    name: 'HTML',
-    logo: 'https://cdn.simpleicons.org/html5/E34F26',
-    accent: 'from-orange-400/20 to-red-400/10',
-  },
-  CSS: {
-    name: 'CSS',
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
-    mark: 'CSS',
-    accent: 'from-blue-400/20 to-cyan-300/10',
-  },
-  R: {
-    name: 'R',
-    logo: 'https://cdn.simpleicons.org/r/276DC3',
-    accent: 'from-sky-400/20 to-blue-500/10',
-  },
-  SQL: {
-    name: 'SQL',
-    logo: 'https://cdn.simpleicons.org/mysql/4479A1',
-    accent: 'from-cyan-300/20 to-blue-500/10',
-  },
-  'PL/SQL': {
-    name: 'PL/SQL',
-    logo: 'https://cdn.simpleicons.org/oracle/F80000',
-    mark: 'SQL',
-    accent: 'from-red-400/20 to-orange-300/10',
-  },
-  'Jupyter Notebook': {
-    name: 'Jupyter Notebook',
-    logo: 'https://cdn.simpleicons.org/jupyter/F37626',
-    accent: 'from-orange-400/20 to-yellow-300/10',
-  },
-  RStudio: {
-    name: 'RStudio',
-    logo: 'https://cdn.simpleicons.org/rstudioide/75AADB',
-    accent: 'from-cyan-300/20 to-blue-400/10',
-  },
-  Excel: {
-    name: 'Excel',
-    logo: 'https://cdn.simpleicons.org/microsoftexcel/217346',
-    mark: 'XLS',
-    accent: 'from-emerald-400/20 to-green-400/10',
-  },
+// Map slugs to brand colors
+const colorMap: Record<string, string> = {
+  powerbi: '#F2C811',
+  looker: '#4285F4',
+  tableau: '#E97627',
+  googleanalytics: '#E37400',
+  d3dotjs: '#F9A03C',
+  python: '#3776AB',
+  javascript: '#F7DF1E',
+  typescript: '#3178C6',
+  html5: '#E34F26',
+  css3: '#1572B6',
+  r: '#276DC3',
+  react: '#61DAFB',
+  nextdotjs: '#FFFFFF',
+  nodedotjs: '#339933',
+  express: '#FFFFFF',
+  mysql: '#4479A1',
+  oracle: '#F80000',
+  postgresql: '#4169E1',
+  mongodb: '#47A248',
+  firebase: '#FFCA28',
+  redis: '#DC382D',
+  git: '#F05032',
+  docker: '#2496ED',
+  vite: '#646CFF',
+  postman: '#FF6C37',
+  figma: '#F24E1E',
+  adobephotoshop: '#31A8FF',
+  jupyter: '#F37626',
+  microsoftexcel: '#217346',
 };
-
-const categoryLabels: Record<string, string> = {
-  'Analytics & BI': 'Analytics',
-  Programming: 'Languages',
-  Database: 'Databases',
-  Tools: 'Tools',
-};
-
-function SkillLogoTile({ logo }: { logo: SkillLogo }) {
-  const [hasImageError, setHasImageError] = useState(false);
-  const mark = logo.mark ?? logo.name.slice(0, 2).toUpperCase();
-
-  return (
-    <div className={`skill-logo bg-gradient-to-br ${logo.accent}`}>
-      {logo.logo && !hasImageError ? (
-        <img
-          src={logo.logo}
-          alt={`${logo.name} logo`}
-          className="h-8 w-8 object-contain sm:h-10 sm:w-10"
-          loading="lazy"
-          onError={() => setHasImageError(true)}
-        />
-      ) : (
-        <span className="text-sm font-black text-cyan-100 sm:text-base">{mark}</span>
-      )}
-    </div>
-  );
-}
 
 export default function Skills() {
+  const allSkills = skillGroups.flatMap(group => group.skills);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.8, y: 20 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      y: 0,
+      transition: { type: 'spring', stiffness: 260, damping: 20 }
+    }
+  };
+
   return (
     <Section
       id="skills"
-      eyebrow="Skills"
-      title="Tools for analysis, visualization, and implementation"
-      description="A practical stack for dashboard development, descriptive analytics, programming, databases, and research workflows."
+      eyebrow="Technical Arsenal"
+      title="Skills & Technologies"
+      description="A comprehensive stack of tools and languages for data science, web development, and business analytics."
     >
-      <div className="glass-card relative overflow-hidden p-5 sm:p-8" data-reveal>
-        <div className="pointer-events-none absolute inset-0 analytics-grid opacity-40" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+      <div className="relative mx-auto max-w-5xl py-12 px-4 sm:px-6">
+        {/* Background cosmic glow */}
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.1)_0%,transparent_70%)] pointer-events-none" />
 
-        <div className="relative space-y-10">
-          {skillGroups.map((group, groupIndex) => (
-            <div key={group.category}>
-              <div className="mb-5 flex items-center justify-center gap-3">
-                <span className="h-px w-10 bg-cyan-300/20" />
-                <h3 className="text-center text-sm font-black uppercase tracking-[0.22em] text-cyan-100">
-                  {categoryLabels[group.category] ?? group.category}
-                </h3>
-                <span className="h-px w-10 bg-cyan-300/20" />
-              </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center items-center gap-x-8 gap-y-12 sm:gap-x-14 sm:gap-y-16"
+        >
+          {allSkills.map((skill) => {
+            const IconComponent = iconMap[skill.slug] || SiIcons.SiCodeigniter;
+            const iconColor = colorMap[skill.slug] || '#8B5CF6';
 
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
-                {group.skills.map((skill, skillIndex) => {
-                  const logo = skillLogos[skill] ?? {
-                    name: skill,
-                    mark: skill.slice(0, 2).toUpperCase(),
-                    accent: 'from-cyan-300/20 to-mint/10',
-                  };
-                  const delay = `${(groupIndex * 5 + skillIndex) * 120}ms`;
+            return (
+              <motion.div
+                key={skill.slug}
+                variants={itemVariants}
+                className="group relative flex flex-col items-center"
+              >
+                {/* Tooltip */}
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-[#030014]/90 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white opacity-0 transition-all duration-300 group-hover:-top-14 group-hover:opacity-100 pointer-events-none z-30 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                  {skill.name}
+                </div>
 
-                  return (
-                    <div
-                      key={skill}
-                      className="floating-skill group"
-                      style={{ animationDelay: delay }}
-                      title={logo.name}
-                    >
-                      <SkillLogoTile logo={logo} />
-                      <span className="mt-2 block max-w-28 text-center text-[11px] font-bold leading-4 text-slate-300 transition group-hover:text-mint sm:text-xs">
-                        {logo.name}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
+                {/* Icon Container */}
+                <div className="relative h-12 w-12 sm:h-16 sm:w-16 flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-125">
+                  {/* Subtle Brand Glow */}
+                  <div 
+                    className="absolute inset-0 rounded-full opacity-0 blur-xl transition-all duration-500 group-hover:opacity-40"
+                    style={{ backgroundColor: iconColor }}
+                  />
+                  
+                  <IconComponent 
+                    size="100%" 
+                    className="relative transition-all duration-300 group-hover:drop-shadow-[0_0_15px_var(--glow-color)]"
+                    style={{ 
+                      color: iconColor,
+                      // @ts-ignore
+                      '--glow-color': iconColor 
+                    }}
+                  />
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </Section>
   );

@@ -7,7 +7,8 @@ export default function Education() {
     <Section
       id="education"
       eyebrow="Education"
-      title="Double-degree path across IT and business analytics"
+      title="Academic Background"
+      description="Double-degree path across IT and business analytics."
     >
       <Timeline items={education} />
     </Section>
