@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-20 lg:px-8"
+      className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-24 lg:px-8 lg:pb-0 lg:pt-20"
     >
       {/* Background glow orbs */}
       <div className="pointer-events-none absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-purple-600/10 blur-[120px]" />
@@ -17,12 +17,13 @@ export default function Hero() {
       <div className="pointer-events-none absolute right-1/3 top-1/3 h-64 w-64 rounded-full bg-cyan-500/6 blur-[80px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl w-full">
-        <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           {/* Text content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-center lg:text-left"
           >
 
             {/* Name */}
@@ -30,7 +31,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-5xl font-black leading-[1.1] text-white sm:text-6xl lg:text-7xl"
+              className="text-4xl font-black leading-[1.1] text-white sm:text-6xl lg:text-7xl"
             >
               Hi, I'm{' '}
               <span>Dinil</span>
@@ -43,7 +44,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="mt-5 text-xl font-semibold text-purple-300/90 sm:text-2xl"
+              className="mt-5 text-lg font-semibold text-purple-300/90 sm:text-2xl"
             >
               <Typewriter words={heroRoles} typingSpeed={80} deletingSpeed={40} pauseDuration={2500} />
             </motion.div>
@@ -53,7 +54,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="mt-6 max-w-xl text-base leading-7 text-slate-400 sm:text-lg"
+              className="mx-auto mt-6 max-w-xl text-base leading-7 text-slate-400 sm:text-lg lg:mx-0"
             >
               Motivated double-degree undergraduate pursuing BSc (Hons) in Information Technology
               and BMBA (Hons) in Business Analytics. Passionate about data science, dashboards, and
@@ -65,7 +66,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}
-              className="mt-4 flex items-center gap-2 text-sm text-slate-500"
+              className="mt-4 flex items-center justify-center gap-2 text-sm text-slate-500 lg:justify-start"
             >
               <FiMapPin className="text-purple-400" />
               <span>{contact.location}</span>
@@ -76,7 +77,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="mt-8 flex flex-wrap items-center gap-4"
+              className="mt-8 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             >
               <a
                 href="#projects"
@@ -100,7 +101,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.5 }}
-              className="mt-8 flex items-center gap-4"
+              className="mt-8 flex items-center justify-center gap-4 lg:justify-start"
             >
               <a
                 href={`https://${contact.linkedin}`}
@@ -126,7 +127,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8, x: 40 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.9, ease: 'easeOut', delay: 0.4 }}
-            className="relative hidden lg:block"
+            className="relative order-first mx-auto w-full max-w-[18rem] sm:max-w-xs lg:order-none lg:block lg:max-w-none"
           >
             <div className="relative mx-auto max-w-sm">
               {/* Glow ring */}
@@ -149,7 +150,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -left-8 top-1/4 rounded-xl border border-purple-500/20 bg-[#030014]/90 px-4 py-3 backdrop-blur-xl shadow-xl"
+                className="absolute -left-4 top-1/4 hidden rounded-xl border border-purple-500/20 bg-[#030014]/90 px-4 py-3 backdrop-blur-xl shadow-xl sm:block lg:-left-8"
               >
                 <p className="text-xs font-semibold text-purple-400">BI & Dashboards</p>
                 <p className="text-lg font-bold text-white">Power BI</p>
@@ -158,7 +159,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [5, -5, 5] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -right-6 bottom-1/3 rounded-xl border border-purple-500/20 bg-[#030014]/90 px-4 py-3 backdrop-blur-xl shadow-xl"
+                className="absolute -right-4 bottom-1/3 hidden rounded-xl border border-purple-500/20 bg-[#030014]/90 px-4 py-3 backdrop-blur-xl shadow-xl sm:block lg:-right-6"
               >
                 <p className="text-xs font-semibold text-purple-400">Research & Analysis</p>
                 <p className="text-lg font-bold text-white">Data Science</p>
@@ -168,7 +169,7 @@ export default function Hero() {
               <motion.div
                 animate={{ x: [-5, 5, -5], y: [-5, 5, -5] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -right-12 top-10 flex items-center gap-2 rounded-full border border-purple-500/20 bg-[#030014]/90 px-4 py-2 backdrop-blur-xl shadow-xl"
+                className="absolute -right-6 top-10 hidden items-center gap-2 rounded-full border border-purple-500/20 bg-[#030014]/90 px-4 py-2 backdrop-blur-xl shadow-xl sm:flex lg:-right-12"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-purple-400" />
@@ -185,7 +186,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 sm:block"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
